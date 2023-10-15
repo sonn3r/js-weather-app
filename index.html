@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Weather App</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="top">
-<h1>Weather App</h1>
-
-<label for="cityInput">Enter a city:</label>
-<input type="text" id="cityInput">
-<button id="searchButton">Search</button>
+<div class="container">
+    <div class="search-box">
+        <i class="fa-solid fa-location-dot"></i>
+        <label for="cityInput"></label><input type="text" id="cityInput" placeholder="Enter a country">
+        <button id="searchButton"><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
+    </div>
 </div>
 
 <div id="weatherResult">
     <!-- Weather information will be displayed here -->
 </div>
 
+<script src="https://kit.fontawesome.com/ce55b4a392.js" crossorigin="anonymous"></script>
 <script src="main.js" type="module"></script>
 </body>
 </html>

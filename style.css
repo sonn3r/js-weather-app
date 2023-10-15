@@ -1,5 +1,55 @@
-#top {
+body {
+    background: #0b1a44;
+    color: white;
+    font-weight: bold;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0 25px;
     text-align: center;
+    width: 450px;
+    height: min-content;
+    border-radius: 20px;
+    background: white;
+}
+
+input {
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    width: 300px;
+    padding: 20px;
+    margin: 10px;
+    border: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+.fa-magnifying-glass, .fa-location-dot {
+    color: black;
+    font-size: 35px;
+}
+
+.fa-magnifying-glass, button {
+    background: lightblue;
+    padding: 7px;
+    border: none;
+    border-radius: 50px;
+    display: flex;
+    text-align: right;
+    cursor: pointer;
 }
 
 #weatherResult {
