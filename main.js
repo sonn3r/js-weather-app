@@ -1,37 +1,65 @@
-const searchButton = document.getElementById('searchButton');
-const cityInput = document.getElementById('cityInput');
-const weatherResult = document.getElementById('weatherResult');
+const container = document.querySelector('.container');
+const search = document.querySelector('.search-box button');
+const weatherBox = document.querySelector('.weather-box');
+const weatherDetails = document.querySelector('.weather-details');
+const error404 = document.querySelector('.not-found');
 
-const apiKey = '8d8d0f2d1cmsh0feda85c2dabca8p16c9f0jsn30d0c0f7ed86';
-const apiK = '5eabeb55f152b01a0367fc3e48a65afc' // openweather
+search.addEventListener('click', () => {
+    const apiKey = '5eabeb55f152b01a0367fc3e48a65afc';
+    const city = document.querySelector('.search-box input').value;
 
-searchButton.addEventListener('click', async () => {
-    weatherResult.style.display = 'block';
-    const city = cityInput.value;
-    const url = `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${city}`;
-
-    const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': apiKey,
-            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-        }
-    };
-
-    try {
-        const response = await fetch(url, options);
-        const data = await response.json(); // Parse JSON response
-
-        // Create a formatted output
-        weatherResult.innerHTML = `
-                    <h2>Weather in ${data.location.name}, ${data.location.country}</h2>
-                    <p>Current Temperature: ${data.current.temp_c}°C</p>
-                    <p>Condition: ${data.current.condition.text}</p>
-                    <p>Humidity: ${data.current.humidity}%</p>
-                    <p>Wind Speed: ${data.current.wind_kph} km/h</p>
-                `;
-    } catch (error) {
-        console.error(error);
-        weatherResult.textContent = 'An error occurred. Please try again later.';
+    if (city === '') {
+        return;
     }
+
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`).then(response => response.json()).then(json => {
+        const image = document.querySelector('.weather-box img');
+        const temperature = document.querySelector('.weather-box .temperature');
+        const description = document.querySelector('.weather-box .description');
+        const humidity = document.querySelector('.weather-details .humidity');
+        const wind = document.querySelector('.weather-details .wind');
+
+        switch (json.weather[0].main) {
+            case 'Clear':
+                image.src = 'images/clear.png';
+        }
+    });
+
+
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const searchButton = document.getElementById('searchButton');
+    const cityInput = document.getElementById('cityInput');
+    const weatherResult = document.getElementById('weatherResult');
+
+    searchButton.addEventListener('click', function () {
+        const city = cityInput.value;
+
+        if (city.trim() !== '') {
+            // Replace 'YOUR_API_KEY' with your OpenWeather API key
+            const apiKey = '5eabeb55f152b01a0367fc3e48a65afc';
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    weatherResult.innerHTML = `
+            <h2>Weather in ${data.name}, ${data.sys.country}</h2>
+            <p>Temperature: ${data.main.temp}°C</p>
+            <p>Weather: ${data.weather[0].description}</p>
+            <p>Humidity: ${data.main.humidity}%</p>
+            <p>${data.main.clouds}</p>
+          `;
+                    weatherResult.style.display = 'block'; // Show the weather information div
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    weatherResult.innerHTML = 'Error fetching weather data.';
+                    weatherResult.style.display = 'block'; // Show the error message
+                });
+        }
+    });
 });
