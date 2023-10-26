@@ -35,20 +35,27 @@ search.addEventListener('click', () => {
 
         switch (json.weather[0].main) {
             case 'Clear':
-                image.src = 'images/clear.png';
+                image.src = 'images/day-clear.png';
+                break;
+            case 'Clouds':
+                image.src = 'images/day_partial_cloud.png';
+                break;
+            case 'Drizzle':
+                image.src = 'day_rain.png';
                 break;
             case 'Rain':
                 image.src = 'images/rain.png';
                 break;
-            case 'Cloud':
-                image.src = 'images/cloud.png';
+            case 'Snow':
+                image.src = 'images/day_snow.png';
                 break;
-            case 'Haze':
+            case 'Mist':
                 image.src = 'images/mist.png';
                 break;
-            case 'Snow':
-                image.src = 'images/snow.png';
+            case 'Thunderstorm':
+                image.src = 'images/day_rain_thunder.png';
                 break;
+
             default:
                 image.src = '';
         }
