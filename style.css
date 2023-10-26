@@ -2,7 +2,6 @@
     font-family: Roboto, serif;
 }
 body {
-    background: #0b1a44;
     color: white;
     font-weight: bold;
     height: 90vh;
@@ -69,6 +68,10 @@ button:hover {
 .temperature, .description {
     color: black;
     margin: 0;
+}
+
+.temperature {
+    margin-top: 25px;
 }
 
 .weather-details {
