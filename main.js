@@ -3,6 +3,7 @@ const search = document.querySelector('.search-box button');
 const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
 const error404 = document.querySelector('.not-found');
+const body = document.querySelector('body');
 
 search.addEventListener('click', () => {
     const apiKey = '5eabeb55f152b01a0367fc3e48a65afc';
@@ -30,8 +31,8 @@ search.addEventListener('click', () => {
         const image = document.querySelector('.weather-box img');
         const temperature = document.querySelector('.weather-box .temperature');
         const description = document.querySelector('.weather-box .description');
-        const humidity = document.querySelector('.weather-details .humidity');
-        const wind = document.querySelector('.weather-details .wind');
+        const humidity = document.querySelector('.weather-details .humidity span');
+        const wind = document.querySelector('.weather-details .wind span');
 
         switch (json.weather[0].main) {
             case 'Clear':
@@ -60,16 +61,16 @@ search.addEventListener('click', () => {
                 image.src = '';
         }
 
-            temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
-            description.innerHTML = `${json.weather[0].description}`;
+            temperature.innerHTML = `${parseInt(json.main.temp - 273.15)}<span>°C</span>`;
+            description.innerHTML = json.weather[0].description.charAt(0).toUpperCase() + json.weather[0].description.slice(1);
             humidity.innerHTML = `${json.main.humidity}%`;
-            wind.innerHTML = `${parseInt(json.wind.speed)}Km/h`;
-
+            wind.innerHTML = `${parseInt(json.wind.speed)} km/h`;
             weatherBox.style.display = '';
             weatherDetails.style.display = '';
             weatherBox.classList.add('fadeIn');
             weatherDetails.classList.add('fadeIn');
-            container.style.height = '590px';
+            container.style.height = '650px';
+            body.style.height = '97vh';
     });
 });
 

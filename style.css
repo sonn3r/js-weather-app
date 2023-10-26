@@ -1,3 +1,6 @@
+* {
+    font-family: Roboto, serif;
+}
 body {
     background: #0b1a44;
     color: white;
@@ -63,32 +66,52 @@ button:hover {
 
 }
 
+.temperature, .description {
+    color: black;
+    margin: 0;
+}
+
 .weather-details {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    justify-items: center;
     padding: 10px 25px;
     border-radius: 5px;
-    max-width: 400px;
-    margin: 30px auto;
+    max-width: 100%;
+    margin-top: 80px;
 }
 
 .humidity, .wind {
-    display: inline-block;
+    display: flex;
     color: black;
+    width: 50%;
+}
+
+.humidity {
+    justify-content: flex-start;
+}
+
+.wind {
+    justify-content: flex-end;
+}
+
+.weather-details i {
     font-size: 40px;
+    margin-right: 10px;
+    margin-top: 10px;
 }
 
-.weather-details i, p {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 5px;
+.weather-details span {
+    font-size: 20px;
+}
+
+.weather-details p {
+    margin-top: 5px;
     color: black;
-    font-size: 30px;
+    font-size: 25px;
 }
 
-.not-found{
+.not-found {
     width: 100%;
     text-align: center;
     margin: 25px 0;
@@ -97,7 +120,7 @@ button:hover {
     display: none;
 }
 
-.not-found img{
+.not-found img {
     width: 70%;
 }
 
@@ -118,6 +141,20 @@ button:hover {
     margin: 0 auto;
 }
 
+.temperature, .description {
+    width: 100%;
+    font-size: 40px;
+    text-align: center;
+}
+
+.temperature {
+    font-size: 60px;
+}
+
+.temperature span {
+    font-size: 25px;
+    vertical-align: top;
+}
 .fadeIn{
     animation: 0.5s fadeIn forwards;
     animation-delay: 0.5s;
