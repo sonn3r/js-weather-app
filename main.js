@@ -4,27 +4,39 @@ const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
 const error404 = document.querySelector('.not-found');
 const body = document.querySelector('body');
+const locationIcon = document.querySelector('.search-box .fa-location-dot');
 
 
 // Day/Night Color Theme
 let currentHour = new Date().getHours();
+
+const button = document.querySelector('button');
 if (currentHour >= 18 || currentHour <= 6) {
-    document.querySelector('body').style.background = '#0b1a44';
-} else {
-    document.querySelector('body').style.background = '#cca246';
-    document.querySelector('button').style.background = '#e1af52';
-    document.querySelector('button').addEventListener('mouseover', () => {
-        document.querySelector('button').style.background = '#e09b26'
+    body.style.background = '#0b1a44';
+
+    button.addEventListener('mouseover', () => {
+        button.style.background = '#8ec1d2'
     });
-    document.querySelector('button').addEventListener('mouseout', () => {
-        document.querySelector('button').style.background = '#e1af52'
+    button.addEventListener('mouseout', () => {
+        button.style.background = 'lightblue'
+    });
+
+} else {
+    body.style.background = '#ffb70e';
+    button.style.background = '#ffc559';
+
+    button.addEventListener('mouseover', () => {
+        button.style.background = '#ffb94a'
+    });
+    button.addEventListener('mouseout', () => {
+        button.style.background = '#ffc559'
     });
 }
 
 search.addEventListener('click', () => {
     const apiKey = '5eabeb55f152b01a0367fc3e48a65afc';
     const city = document.querySelector('.search-box input').value;
-    const lang = 'ua';
+    const lang = 'en';
     if (city === '') {
         return;
     }
@@ -33,16 +45,22 @@ search.addEventListener('click', () => {
         .then(response => response.json())
         .then(json => {
             if (json.cod === '404') {
+
                 container.style.height = '400px';
                 weatherBox.style.display = 'none';
                 weatherDetails.style.display = 'none';
                 error404.style.display = 'block';
                 error404.classList.add('fadeIn');
+                locationIcon.classList.remove('fa-location-dot');
+                locationIcon.classList.add('fa-triangle-exclamation');
                 return;
             }
 
             error404.style.display = 'none';
             error404.classList.remove('fadeIn');
+
+            locationIcon.classList.remove('fa-triangle-exclamation');
+            locationIcon.classList.add('fa-location-dot');
 
             const image = document.querySelector('.weather-box img');
             const temperature = document.querySelector('.weather-box .temperature');

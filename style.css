@@ -1,13 +1,14 @@
 * {
     font-family: Roboto, serif;
 }
+
 body {
-    color: white;
     font-weight: bold;
     height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: black;
 }
 
 .container {
@@ -44,7 +45,6 @@ input:focus {
 }
 
 .fa-solid {
-    color: black;
     font-size: 35px;
 }
 
@@ -59,14 +59,12 @@ button {
 }
 
 button:hover {
-    background: #8ec1d2;
     transform: scale(1.1);
     transition: transform 0.05s ease-in-out;
 
 }
 
 .temperature, .description {
-    color: black;
     margin: 0;
 }
 
@@ -86,7 +84,6 @@ button:hover {
 
 .humidity, .wind {
     display: flex;
-    color: black;
     width: 50%;
 }
 
@@ -110,30 +107,36 @@ button:hover {
 
 .weather-details p {
     margin-top: 5px;
-    color: black;
     font-size: 25px;
 }
 
 .not-found {
     width: 100%;
     text-align: center;
-    margin: 25px 0;
     scale: 0;
     opacity: 0;
     display: none;
 }
 
-.not-found img {
-    width: 70%;
-}
-
-.not-found p{
-    color: #06283D;
+.not-found p {
     font-size: 30px;
     font-weight: 500;
+    margin-top: 15px;
+    margin-bottom: 0;
 }
 
-.weather-box, .weather-details{
+.not-found p:first-child {
+
+    font-size: 120px;
+    font-weight: bold;
+    color: gray;
+}
+
+.not-found p:last-child {
+    font-size: 15px;
+}
+
+.weather-box, .weather-details {
     scale: 0;
     opacity: 0;
 }
@@ -158,12 +161,13 @@ button:hover {
     font-size: 25px;
     vertical-align: top;
 }
-.fadeIn{
+
+.fadeIn {
     animation: 0.5s fadeIn forwards;
     animation-delay: 0.5s;
 }
 
-@keyframes fadeIn{
+@keyframes fadeIn {
     to {
         scale: 1;
         opacity: 1;
