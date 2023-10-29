@@ -1,5 +1,6 @@
 const container = document.querySelector('.container');
-const search = document.querySelector('.search-box button');
+let language = document.querySelector('#languageButton');
+const search = document.querySelector('#searchButton');
 const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
 const error404 = document.querySelector('.not-found');
@@ -8,35 +9,56 @@ const locationIcon = document.querySelector('.search-box .fa-location-dot');
 
 
 // Day/Night Color Theme
-let currentHour = new Date().getHours();
+const currentHour = new Date().getHours();
+const allButtons = document.querySelectorAll('button');
 
-const button = document.querySelector('button');
-if (currentHour >= 18 || currentHour <= 6) {
-    body.style.background = '#0b1a44';
+allButtons.forEach((button) => {
+    if (currentHour >= 18 || currentHour <= 6) {
+        body.style.background = '#0b1a44';
+        search.style.background = 'lightblue';
+        language.style.background = 'none';
 
-    button.addEventListener('mouseover', () => {
-        button.style.background = '#8ec1d2'
-    });
-    button.addEventListener('mouseout', () => {
-        button.style.background = 'lightblue'
-    });
+        search.addEventListener('mouseover', () => {
+            search.style.background = '#8fccde';
+        });
+        search.addEventListener('mouseout', () => {
+            search.style.background = 'lightblue';
+        });
+        search.addEventListener('mousedown', () => {
+            search.style.background = '#c7ecf6';
+        });
 
-} else {
-    body.style.background = '#ffb70e';
-    button.style.background = '#ffc559';
 
-    button.addEventListener('mouseover', () => {
-        button.style.background = '#ffb94a'
-    });
-    button.addEventListener('mouseout', () => {
-        button.style.background = '#ffc559'
-    });
-}
+        language.addEventListener('mouseover', () => {
+            language.style.background = 'rgba(173, 216, 230, 0.5)';
+        });
+        language.addEventListener('mouseout', () => {
+            language.style.background = 'none';
+        });
+        language.addEventListener('mousedown', () => {
+            language.style.background = 'lightblue';
+        });
 
+    } else {
+        body.style.background = '#ffb70e';
+        button.style.background = '#ffd893';
+
+        button.addEventListener('mouseover', () => {
+            button.style.background = '#ffc973';
+        });
+        button.addEventListener('mouseout', () => {
+            button.style.background = '#ffd893';
+        });
+    }
+})
+
+let lang = 'en';
+
+// Search
 search.addEventListener('click', () => {
     const apiKey = '5eabeb55f152b01a0367fc3e48a65afc';
     const city = document.querySelector('.search-box input').value;
-    const lang = 'en';
+
     if (city === '') {
         return;
     }
@@ -128,7 +150,8 @@ search.addEventListener('click', () => {
             temperature.innerHTML = `${parseInt(json.main.temp - 273.15)}<span>°C</span>`;
             description.innerHTML = json.weather[0].description.charAt(0).toUpperCase() + json.weather[0].description.slice(1);
             humidity.innerHTML = `${json.main.humidity}%`;
-            wind.innerHTML = `${parseInt(json.wind.speed)} km/h`;
+            wind.innerHTML = `${parseInt(json.wind.speed)}`;
+
             weatherBox.style.display = '';
             weatherDetails.style.display = '';
             weatherBox.classList.add('fadeIn');
@@ -138,6 +161,7 @@ search.addEventListener('click', () => {
         });
 });
 
+// Search with 'Enter' key
 const searchInput = document.querySelector('.search-box input');
 searchInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
@@ -145,5 +169,82 @@ searchInput.addEventListener('keydown', (event) => {
         event.preventDefault();
         // Trigger the search when Enter is pressed
         search.click();
+    }
+});
+
+// Language
+const english = document.querySelector('#english');
+const ukrainian = document.querySelector('#ukrainian');
+
+document.addEventListener('DOMContentLoaded', () => {
+    const dots = document.querySelector('.dots');
+    const menuContent = document.querySelector('.menu-content');
+    const inputText = document.querySelector('.search-box input');
+    const humidityText = document.querySelector('.humidity .text p');
+    const windText = document.querySelector('.wind .text p');
+    const windSpeed = document.querySelector('#speed');
+
+    dots.addEventListener('click', () => {
+        if (menuContent.style.display === 'none' || menuContent.style.display === '') {
+            menuContent.style.display = 'block';
+        } else {
+            menuContent.style.display = 'none';
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!dots.contains(event.target) && !menuContent.contains(event.target)) {
+            menuContent.style.display = 'none';
+        }
+    });
+
+    // Function to set the language in localStorage
+    function setLanguage(language) {
+        localStorage.setItem('selectedLanguage', language);
+    }
+
+    english.addEventListener('click', () => {
+        setLanguage('en');
+        english.style.outline = '3px solid red';
+        ukrainian.style.outline = 'none';
+        inputText.placeholder = 'Enter a city';
+        humidityText.innerHTML = 'Humidity';
+        windText.innerHTML = 'Wind';
+        windSpeed.innerHTML = 'km/h';
+        document.location.reload();
+    });
+
+    ukrainian.addEventListener('click', () => {
+        setLanguage('uk');
+        english.style.outline = 'none';
+        ukrainian.style.outline = '3px solid red';
+        inputText.placeholder = 'Введіть місто';
+        humidityText.innerHTML = 'Вологість';
+        windText.innerHTML = 'Вітер';
+        windSpeed.innerHTML = 'км/г';
+        document.location.reload();
+    });
+
+    const selectedLanguage = localStorage.getItem('selectedLanguage');
+
+    if (selectedLanguage) {
+        lang = selectedLanguage;
+        if (lang === 'en') {
+            english.style.outline = '3px solid red';
+            ukrainian.style.outline = 'none';
+            inputText.placeholder = 'Enter a city';
+            humidityText.innerHTML = 'Humidity';
+            windText.innerHTML = 'Wind';
+            windSpeed.innerHTML = 'km/h';
+            setLanguage(lang);
+        } else if (lang === 'uk') {
+            english.style.outline = 'none';
+            ukrainian.style.outline = '3px solid red';
+            inputText.placeholder = 'Введіть місто';
+            humidityText.innerHTML = 'Вологість';
+            windText.innerHTML = 'Вітер';
+            windSpeed.innerHTML = 'км/г';
+            setLanguage(lang);
+        }
     }
 });

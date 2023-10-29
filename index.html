@@ -9,11 +9,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<div class="menu">
+    <div class="dots">
+        <button id="languageButton"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+    </div>
+    <div class="menu-content">
+        <ul>
+            <li><img src="images/english.webp" alt="English language" id="english"></li>
+            <li><img src="images/ukrainian.webp" alt="Ukrainian language" id="ukrainian"></li>
+        </ul>
+    </div>
+</div>
+
 <div class="container">
     <div class="search-box">
         <i class="fa-solid fa-location-dot"></i>
-        <label for="cityInput"></label><input type="text" id="cityInput" placeholder="Enter city">
-        <button id="searchButton"><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></button>
+        <label for="cityInput"></label><input type="text" id="cityInput">
+        <button id="searchButton"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
 
     <div class="not-found">
@@ -40,11 +53,13 @@
             <i class="fa-solid fa-wind"></i>
             <div class="text">
                 <span></span>
+                <span id="speed"></span>
                 <p>Wind</p>
             </div>
         </div>
     </div>
 </div>
+
 
 <script src="https://kit.fontawesome.com/ce55b4a392.js" crossorigin="anonymous"></script>
 <script src="main.js" type="module"></script>
